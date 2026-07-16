@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Propos - Glamour Cosmetics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 20px 100px;
+            margin-top: 70px;
+        }
+        
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .about-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            gap: 40px;
+        }
+        
+        .about-section.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .about-text, .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .team {
+            background-color: #fff9fb;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .about-section, .about-section.reverse {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Glamour<span>Cosmetics</span></a>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="boutique.html">Boutique</a>
+                <a href="tutoriels.html">Tutoriels</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-icons">
+                <a href="boutique.html#recherche" class="search-icon" aria-label="Rechercher un produit"><i class="fas fa-search"></i></a>
+                <a href="panier.html" class="cart-icon" aria-label="Voir le panier"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="about-hero">
+        <h1>Notre Histoire</h1>
+        <p>Découvrez l'univers Glamour Cosmetics et notre passion pour la beauté</p>
+    </section>
+
+    <div class="about-content">
+        <section class="about-section">
+            <div class="about-text">
+                <h2>Notre Mission</h2>
+                <p>Depuis notre création en 2015, Glamour Cosmetics s'engage à fournir des produits de maquillage de haute qualité, à la fois innovants et respectueux de la peau. Notre mission est de permettre à chacun de révéler sa beauté naturelle à travers des formules riches en actifs naturels et des textures uniques.</p>
+                <p>Nous croyons en une beauté inclusive qui célèbre la diversité et l'authenticité de chacun. C'est pourquoi nous proposons une large gamme de teintes adaptées à toutes les carnations et à tous les types de peau.</p>
+            </div>
+            <div class="about-image">
+                <img src="images/mission.jpg" alt="Notre Mission">
+            </div>
+        </section>
+
+        <section class="about-section reverse">
+            <div class="about-image">
+                <img src="images/qualite.jpg" alt="Notre Engagement Qualité">
+            </div>
+            <div class="about-text">
+                <h2>Notre Engagement Qualité</h2>
+                <p>Chaque produit Glamour Cosmetics est le fruit de mois, voire d'années de recherche et développement. Nous collaborons avec des dermatologues et des experts en cosmétiques pour créer des formules à la fois performantes et sûres.</p>
+                <p>Nos produits sont :</p>
+                <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                    <li><i class="fas fa-check" style="color: #ff6b9d; margin-right: 10px;"></i> Sans parabènes</li>
+                    <li><i class="fas fa-check" style="color: #ff6b9d; margin-right: 10px;"></i> Sans huiles minérales</li>
+                    <li><i class="fas fa-check" style="color: #ff6b9d; margin-right: 10px;"></i> Non testés sur les animaux</li>
+                    <li><i class="fas fa-check" style="color: #ff6b9d; margin-right: 10px;"></i> Fabriqués en France</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <section class="team">
+        <div class="container">
+            <h2>Notre Équipe</h2>
+            <p>Découvrez les talents derrière Glamour Cosmetics</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sophie Martin">
+                    <h3>Sophie Martin</h3>
+                    <p class="position">Fondatrice & Directrice Artistique</p>
+                    <p>15 ans d'expérience dans l'industrie du maquillage</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Camille Dubois">
+                    <h3>Camille Dubois</h3>
+                    <p class="position">Responsable Recherche & Développement</p>
+                    <p>Docteure en chimie cosmétique</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Léa Petit">
+                    <h3>Léa Petit</h3>
+                    <p class="position">Responsable Relation Client</p>
+                    <p>Votre interlocutrice privilégiée</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-minimal"><div class="footer-content"><div class="footer-section"><h3>Glamour Cosmetics</h3><p>Des produits de vos marques préférées pour révéler votre beauté, chaque jour.</p></div><div class="footer-section"><h3>Contact</h3><p><a href="tel:+22372064730">+223 72 06 47 30</a></p><p><a href="mailto:fatoumatadoumbia720@gmail.com">fatoumatadoumbia720@gmail.com</a></p></div></div><div class="footer-bottom"><p>&copy; 2026 Glamour Cosmetics. Tous droits réservés.</p></div></footer>
+
+    <script src="script.js?v=20260716-cart-buttons"></script>
+</body>
+</html>

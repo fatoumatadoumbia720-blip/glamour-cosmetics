@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - Glamour Cosmetics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="home.css?v=20260715-header">
+    <style>
+        .boutique-page {
+            padding-top: 108px;
+            background: #fff7f8;
+        }
+        
+        
+        .filters {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            margin-bottom: 0;
+        }
+
+        .brand-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            box-sizing: border-box;
+            gap: 12px;
+            padding: 34px 20px 22px;
+            background: linear-gradient(135deg, #fce8ed, #fff4f5);
+        }
+
+        .brand-nav a {
+            padding: 10px 20px;
+            border: 1px solid #efbfd0;
+            border-radius: 999px;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .brand-nav a:hover {
+            color: white;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .shop-catalog {
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(circle at 8% 12%, rgba(217, 79, 123, 0.10), transparent 24%),
+                radial-gradient(circle at 92% 58%, rgba(232, 151, 167, 0.13), transparent 27%),
+                linear-gradient(180deg, #fff7f8 0%, #fcebed 52%, #fff8f7 100%);
+        }
+
+        .brand-section {
+            scroll-margin-top: 95px;
+        }
+
+        .brand-huda { order: 1; }
+        .brand-fenty { order: 2; }
+        .brand-sephora { order: 3; }
+        .brand-loreal { order: 4; }
+
+        .brand-heading {
+            max-width: 1160px;
+            margin: 8px auto 20px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .brand-heading h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 6px;
+        }
+
+        .brand-heading p {
+            color: #777;
+        }
+        
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .filter-group {
+            margin-right: 20px;
+        }
+        
+        .filter-group label {
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        select, input[type="text"], input[type="search"] {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .filter-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-button:hover {
+            background-color: #ff4d8d;
+        }
+        
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+        
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card[data-brand="loreal"] .product-image img,
+        .product-card[data-brand="sephora"] .product-image img {
+            object-fit: contain;
+            background: #fffafa;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .quick-view {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            text-align: center;
+            transition: bottom 0.3s ease;
+        }
+        
+        .product-card:hover .quick-view {
+            bottom: 0;
+        }
+        
+        .quick-view-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .quick-view-btn:hover {
+            background: #ff4d8d;
+        }
+        
+        .product-info {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-price {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+        
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .product-status {
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .add-to-cart:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0;
+            gap: 10px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        .page-link:hover, .page-link.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .boutique-page {
+                padding-top: 101px;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-group {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            
+            select, input[type="text"], input[type="search"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="boutique-page">
+    <div class="announcement-bar"><p><i class="fas fa-wand-magic-sparkles"></i> Livraison offerte dès 50 € <span>•</span> Retours faciles sous 30 jours</p></div>
+    <header class="home-header">
+        <nav aria-label="Navigation principale">
+            <a href="index.html" class="logo">Glamour<span>Cosmetics</span></a>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="boutique.html" class="active">Boutique</a>
+                <a href="tutoriels.html">Tutoriels</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-icons">
+                <a href="#recherche" class="search-icon" aria-label="Rechercher un produit"><i class="fas fa-search"></i></a>
+                <a href="panier.html" class="cart-icon" aria-label="Voir le panier"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <nav class="brand-nav" aria-label="Marques de la boutique">
+        <a href="#huda">Huda Beauty</a>
+        <a href="#fenty">Fenty Beauty</a>
+        <a href="#sephora">Sephora</a>
+        <a href="#loreal">L'Oréal Paris</a>
+    </nav>
+
+    <p id="result-count" class="search-results-summary" aria-live="polite" hidden></p>
+
+    <main class="shop-catalog">
+    <section class="brand-section brand-huda" id="huda">
+        <div class="brand-heading"><h2>Huda Beauty</h2><p>Maquillage et parfums iconiques</p></div>
+        <div class="shop-grid">
+        <!-- Collection Huda Beauty -->
+        <div class="product-card" data-product-id="huda-kayali-utopia" data-brand="huda" data-category="parfums" data-price="0">
+            <div class="product-badge">Huda Beauty</div>
+            <div class="product-image"><img src="images/huda-kayali-utopia.jpeg" alt="Parfum Kayali Utopia Vanille Coco"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Parfum · 50 ml</div><h3 class="product-title">Kayali Utopia Vanille Coco</h3><div class="product-price"><span class="price">79,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="huda-easy-bake-parfum" data-brand="huda" data-category="parfums" data-price="0">
+            <div class="product-badge">Huda Beauty</div>
+            <div class="product-image"><img src="images/huda-easy-bake-parfum.jpeg" alt="Parfum Easy Bake Intense Huda Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Parfum</div><h3 class="product-title">Easy Bake Intense</h3><div class="product-price"><span class="price">79,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="huda-kayali-eden" data-brand="huda" data-category="parfums" data-price="0">
+            <div class="product-badge">Huda Beauty</div>
+            <div class="product-image"><img src="images/huda-kayali-eden.jpeg" alt="Parfum Kayali Eden Juicy Apple"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Parfum · 50 ml</div><h3 class="product-title">Kayali Eden Juicy Apple</h3><div class="product-price"><span class="price">79,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="huda-fond-teint-clair" data-brand="huda" data-category="visage" data-price="0">
+            <div class="product-badge">Huda Beauty</div>
+            <div class="product-image"><img src="images/huda-fond-teint-clair.jpeg" alt="Fond de teint clair Huda Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Teint</div><h3 class="product-title">Fond de teint Huda Beauty – teinte claire</h3><div class="product-price"><span class="price">39,90 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="huda-gamme-fonds-teint" data-brand="huda" data-category="visage" data-price="0">
+            <div class="product-badge">Huda Beauty</div>
+            <div class="product-image"><img src="images/huda-fonds-teint-gamme.jpeg" alt="Gamme de fonds de teint Huda Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Teint</div><h3 class="product-title">Gamme de fonds de teint Huda Beauty</h3><div class="product-price"><span class="price">39,90 €</span></div></div>
+        </div>
+
+        </div>
+    </section>
+
+    <section class="brand-section brand-fenty" id="fenty">
+        <div class="brand-heading"><h2>Fenty Beauty</h2><p>Des produits pensés pour toutes les beautés</p></div>
+        <div class="shop-grid">
+        <!-- Collection Fenty Beauty -->
+        <div class="product-card" data-product-id="fenty-fond-de-teint" data-brand="fenty" data-category="visage" data-price="0">
+            <div class="product-badge">Fenty Beauty</div>
+            <div class="product-image">
+                <img src="images/fenty-foundation.jpeg" alt="Fonds de teint Fenty Beauty">
+                <div class="quick-view">
+                    <button class="quick-view-btn">Aperçu rapide</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Teint</div>
+                <h3 class="product-title">Fond de teint Fenty Beauty</h3>
+                <div class="product-price">
+                    <span class="price">39,90 €</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" data-product-id="fenty-gloss-lumineux" data-brand="fenty" data-category="levres" data-price="0">
+            <div class="product-badge">Fenty Beauty</div>
+            <div class="product-image">
+                <img src="images/fenty-glow.jpeg" alt="Gloss lumineux Fenty Beauty">
+                <div class="quick-view">
+                    <button class="quick-view-btn">Aperçu rapide</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Lèvres</div>
+                <h3 class="product-title">Gloss lumineux Fenty Beauty</h3>
+                <div class="product-price">
+                    <span class="price">25,00 €</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card" data-product-id="fenty-parfum" data-brand="fenty" data-category="parfums" data-price="0">
+            <div class="product-badge">Fenty Beauty</div>
+            <div class="product-image"><img src="images/fenty-parfum.jpeg" alt="Eau de parfum Fenty Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Parfum · 75 ml</div><h3 class="product-title">Eau de parfum Fenty Beauty</h3><div class="product-price"><span class="price">130,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="fenty-creme-levres" data-brand="fenty" data-category="levres" data-price="0">
+            <div class="product-badge">Fenty Beauty</div>
+            <div class="product-image"><img src="images/fenty-creme-levres.jpeg" alt="Crème à lèvres mate Fenty Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Lèvres</div><h3 class="product-title">Crème à lèvres mate Fenty Beauty</h3><div class="product-price"><span class="price">27,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="fenty-gloss-rose" data-brand="fenty" data-category="levres" data-price="0">
+            <div class="product-badge">Fenty Beauty</div>
+            <div class="product-image"><img src="images/fenty-gloss-rose.jpeg" alt="Gloss rose Fenty Beauty"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Lèvres</div><h3 class="product-title">Gloss rose lumineux Fenty Beauty</h3><div class="product-price"><span class="price">25,00 €</span></div></div>
+        </div>
+
+        </div>
+    </section>
+
+    <section class="brand-section brand-loreal" id="loreal">
+        <div class="brand-heading"><h2>L'Oréal Paris</h2><p>Les essentiels maquillage et teint</p></div>
+        <div class="shop-grid">
+        <!-- Collection L'Oréal Paris -->
+        <div class="product-card" data-product-id="loreal-infaillible-fonce" data-brand="loreal" data-category="visage" data-price="0">
+            <div class="product-badge">L'Oréal Paris</div>
+            <div class="product-image"><img src="images/loreal-infaillible-fonce.jpeg" alt="Anticernes Infaillible Full Wear teinte foncée"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Teint</div><h3 class="product-title">Anticernes Infaillible – teinte foncée</h3><div class="product-price"><span class="price">12,10 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="loreal-lumi-highlighter" data-brand="loreal" data-category="visage" data-price="0">
+            <div class="product-badge">L'Oréal Paris</div>
+            <div class="product-image"><img src="images/loreal-lumi-highlighter.jpeg" alt="Stick illuminateur Lumi Le Glass L'Oréal Paris"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Teint</div><h3 class="product-title">Stick illuminateur Lumi Le Glass</h3><div class="product-price"><span class="price">12,90 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="loreal-true-match" data-brand="loreal" data-category="visage" data-price="0">
+            <div class="product-badge">L'Oréal Paris</div>
+            <div class="product-image"><img src="images/loreal-true-match-foundations.jpeg" alt="Gamme de fonds de teint True Match L'Oréal Paris"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Teint</div><h3 class="product-title">Fonds de teint True Match</h3><div class="product-price"><span class="price">14,80 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="loreal-mascara-paradise" data-brand="loreal" data-category="yeux" data-price="0">
+            <div class="product-badge">L'Oréal Paris</div>
+            <div class="product-image"><img src="images/loreal-mascara-paradise.jpeg" alt="Mascara Lash Paradise L'Oréal Paris"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Yeux</div><h3 class="product-title">Mascara Lash Paradise</h3><div class="product-price"><span class="price">14,20 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="loreal-coffret-beaute" data-brand="loreal" data-category="visage" data-price="0">
+            <div class="product-badge">L'Oréal Paris</div>
+            <div class="product-image"><img src="images/loreal-beauty-kit.jpeg" alt="Coffret beauté L'Oréal Paris"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Coffret</div><h3 class="product-title">Coffret Beauté L'Oréal Paris</h3><div class="product-price"><span class="price">49,90 €</span></div></div>
+        </div>
+
+        </div>
+    </section>
+
+    <section class="brand-section brand-sephora" id="sephora">
+        <div class="brand-heading"><h2>Sephora</h2><p>Une sélection beauté pour le visage, les yeux et les lèvres</p></div>
+        <div class="shop-grid">
+        <div class="product-card" data-product-id="sephora-blush-creme" data-brand="sephora" data-category="visage" data-price="0">
+            <div class="product-badge">Sephora</div>
+            <div class="product-image"><img src="images/sephora-blush.jpeg" alt="Blush crème Sephora"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Blush</div><h3 class="product-title">Blush Crème Sephora</h3><div class="product-price"><span class="price">13,99 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="sephora-rouge-artist" data-brand="sephora" data-category="levres" data-price="0">
+            <div class="product-badge">Sephora</div>
+            <div class="product-image"><img src="images/sephora-rouge-artist.jpeg" alt="Rouge à lèvres Rouge Artist disponible chez Sephora"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Lèvres</div><h3 class="product-title">Rouge à Lèvres Rouge Artist</h3><div class="product-price"><span class="price">23,00 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="sephora-mini-kit" data-brand="sephora" data-category="visage" data-price="0">
+            <div class="product-badge">Sephora</div>
+            <div class="product-image"><img src="images/sephora-mini-kit.jpeg" alt="Mini kit beauté Sephora"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Coffret</div><h3 class="product-title">Mini Kit Beauté Sephora</h3><div class="product-price"><span class="price">29,90 €</span></div></div>
+        </div>
+
+        <div class="product-card" data-product-id="sephora-mini-palette" data-brand="sephora" data-category="visage" data-price="0">
+            <div class="product-badge">Sephora</div>
+            <div class="product-image"><img src="images/sephora-mini-palette.jpeg" alt="Mini palette teint et lèvres Sephora"><div class="quick-view"><button class="quick-view-btn">Aperçu rapide</button></div></div>
+            <div class="product-info"><div class="product-category">Palette</div><h3 class="product-title">Mini Palette Teint et Lèvres</h3><div class="product-price"><span class="price">24,90 €</span></div></div>
+        </div>
+
+        </div>
+    </section>
+    </main>
+
+    <footer class="footer-minimal"><div class="footer-content"><div class="footer-section"><h3>Glamour Cosmetics</h3><p>Des produits de vos marques préférées pour révéler votre beauté, chaque jour.</p></div><div class="footer-section"><h3>Contact</h3><p><a href="tel:+22372064730">+223 72 06 47 30</a></p><p><a href="mailto:fatoumatadoumbia720@gmail.com">fatoumatadoumbia720@gmail.com</a></p></div></div><div class="footer-bottom"><p>&copy; 2026 Glamour Cosmetics. Tous droits réservés.</p></div></footer>
+
+    <script src="script.js?v=20260716-cart-buttons"></script>
+</body>
+</html>

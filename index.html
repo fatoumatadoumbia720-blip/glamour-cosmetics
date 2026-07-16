@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez les essentiels maquillage et soins de Glamour Cosmetics.">
+  <title>Glamour Cosmetics — Beauté, maquillage et soins</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=20260713-home">
+  <link rel="stylesheet" href="home.css?v=20260715-carousel-natural">
+</head>
+<body class="home-page">
+  <div class="announcement-bar"><p><i class="fas fa-wand-magic-sparkles"></i> Livraison offerte dès 50 € <span>•</span> Retours faciles sous 30 jours</p></div>
+  <header class="home-header">
+    <nav aria-label="Navigation principale">
+      <a href="index.html" class="logo">Glamour<span>Cosmetics</span></a>
+      <div class="nav-links"><a href="index.html" class="active">Accueil</a><a href="boutique.html">Boutique</a><a href="tutoriels.html">Tutoriels</a><a href="contact.html">Contact</a></div>
+      <div class="nav-icons"><a href="boutique.html#recherche" class="search-icon" aria-label="Rechercher un produit"><i class="fas fa-search"></i></a><a href="panier.html" class="cart-icon" aria-label="Voir le panier"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a></div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+  <main>
+    <section class="home-hero">
+      <div class="home-hero-copy"><p class="eyebrow">Révélez votre beauté naturelle</p><h1>Rayonnez avec des produits de <em>beauté premium</em></h1><p class="hero-description">Découvrez une sélection de maquillage et de soins pensée pour sublimer votre quotidien, simplement.</p><div class="hero-actions"><a href="boutique.html" class="btn-primary">Acheter maintenant</a><a href="#categories" class="text-link">Voir les collections <i class="fas fa-arrow-right"></i></a></div></div>
+      <div class="home-hero-visual hero-carousel" data-hero-carousel aria-label="Publicités de nos marques">
+        <div class="hero-slides">
+          <a class="hero-slide active" href="boutique.html#sephora" aria-label="Découvrir Sephora"><img src="images/home-pub-sephora.jpeg" alt="Campagne beauté Sephora"></a>
+          <a class="hero-slide" href="boutique.html#fenty" aria-label="Découvrir Fenty Beauty"><img src="images/home-pub-fenty.jpeg" alt="Campagne Fenty Beauty"></a>
+          <a class="hero-slide" href="boutique.html#huda" aria-label="Découvrir Huda Beauty"><img src="images/home-pub-huda.jpeg" alt="Campagne Huda Beauty"></a>
+        </div>
+        <div class="hero-carousel-dots" aria-label="Choisir une publicité">
+          <button class="active" type="button" aria-label="Afficher Sephora" aria-current="true"></button>
+          <button type="button" aria-label="Afficher Fenty Beauty"></button>
+          <button type="button" aria-label="Afficher Huda Beauty"></button>
+        </div>
+      </div>
+    </section>
+    <section class="home-section categories-section" id="categories">
+      <div class="section-heading centered"><p class="eyebrow">Les marques incontournables</p><h2>Acheter par marque</h2><p class="section-intro">Nous vous proposons des produits de vos marques préférées, soigneusement sélectionnés pour accompagner toutes vos envies beauté.</p></div>
+      <div class="category-grid brand-grid"><a href="boutique.html#huda" class="category-card"><span><img src="images/huda-beauty.jpeg" alt="Collection Huda Beauty"></span><h3>Huda Beauty</h3><p>Découvrir <i class="fas fa-arrow-right"></i></p></a><a href="boutique.html#fenty" class="category-card"><span><img src="images/fenty-beauty.jpeg" alt="Collection Fenty Beauty"></span><h3>Fenty Beauty</h3><p>Découvrir <i class="fas fa-arrow-right"></i></p></a><a href="boutique.html#sephora" class="category-card"><span><img src="images/sephora.jpeg" alt="Collection Sephora"></span><h3>Sephora</h3><p>Découvrir <i class="fas fa-arrow-right"></i></p></a><a href="boutique.html#loreal" class="category-card"><span><img src="images/loreal.jpeg" alt="Collection L'Oréal Paris"></span><h3>L'Oréal</h3><p>Découvrir <i class="fas fa-arrow-right"></i></p></a></div>
+    </section>
+    <section class="home-promos home-section"><article class="promo-card"><div><p class="eyebrow">Offre spéciale</p><h2>Jusqu’à -30 % sur les soins</h2><a href="boutique.html" class="btn-primary">Découvrir</a></div><img src="images/skin csre.jpg" alt="Collection de soins en promotion"></article><article class="promo-card promo-makeup"><div><p class="eyebrow">Nouveautés</p><h2>La collection maquillage du moment</h2><a href="boutique.html" class="btn-primary">Explorer</a></div><img src="images/huda-beauty.jpeg" alt="Collection de maquillage Huda Beauty"></article></section>
+    <section class="home-section beauty-story"><div class="tutorial-callout"><div class="tutorial-icon" aria-hidden="true"><i class="fas fa-play"></i></div><p class="eyebrow">Conseils beauté</p><h2>Apprenez à vous maquiller en quelques minutes</h2><p>Découvrez des techniques simples et rapides pour réussir votre teint, votre regard et vos lèvres.</p><a href="tutoriels.html" class="btn-primary">Voir les tutoriels <i class="fas fa-arrow-right"></i></a></div></section>
+    <section class="values-strip"><article><i class="fas fa-heart"></i><h3>Beauté responsable</h3><p>Une sélection pensée avec soin</p></article><article><i class="fas fa-leaf"></i><h3>Formules douces</h3><p>Confortables pour votre peau</p></article><article><i class="fas fa-flask"></i><h3>Qualité testée</h3><p>Des produits choisis avec exigence</p></article><article><i class="fas fa-headset"></i><h3>Conseils personnalisés</h3><p>Une équipe à votre écoute</p></article></section>
+    <section class="newsletter home-newsletter" id="newsletter"><div class="newsletter-content"><p class="eyebrow">Votre rendez-vous beauté</p><h2>Recevez 10 % de réduction</h2><p>Inscrivez-vous pour découvrir nos nouveautés et offres exclusives.</p><form id="newsletter-form"><label class="sr-only" for="newsletter-email">Votre adresse email</label><input id="newsletter-email" type="email" placeholder="Votre adresse email" required><button type="submit">S’inscrire</button></form></div></section>
+  </main>
+  <footer class="footer-minimal"><div class="footer-content"><div class="footer-section"><h3>Glamour Cosmetics</h3><p>Des produits de vos marques préférées pour révéler votre beauté, chaque jour.</p></div><div class="footer-section"><h3>Contact</h3><p><a href="tel:+22372064730">+223 72 06 47 30</a></p><p><a href="mailto:fatoumatadoumbia720@gmail.com">fatoumatadoumbia720@gmail.com</a></p></div></div><div class="footer-bottom"><p>&copy; 2026 Glamour Cosmetics. Tous droits réservés.</p></div></footer>
+  <script src="script.js?v=20260716-cart-buttons"></script>
+</body>
+</html>

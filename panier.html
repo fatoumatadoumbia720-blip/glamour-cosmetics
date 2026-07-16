@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consultez et validez votre panier Glamour Cosmetics.">
+  <title>Mon panier — Glamour Cosmetics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=20260716-cart-live">
+  <link rel="stylesheet" href="home.css?v=20260716-cart-live">
+  <link rel="stylesheet" href="cart.css?v=20260716-cart-live">
+</head>
+<body class="home-page cart-page">
+  <div class="announcement-bar"><p><i class="fas fa-wand-magic-sparkles"></i> Livraison offerte dès 50 € <span>•</span> Retours faciles sous 30 jours</p></div>
+  <header class="home-header">
+    <nav aria-label="Navigation principale">
+      <a href="index.html" class="logo">Glamour<span>Cosmetics</span></a>
+      <div class="nav-links"><a href="index.html">Accueil</a><a href="boutique.html">Boutique</a><a href="tutoriels.html">Tutoriels</a><a href="contact.html">Contact</a></div>
+      <div class="nav-icons"><a href="boutique.html#recherche" class="search-icon" aria-label="Rechercher un produit"><i class="fas fa-search"></i></a><a href="panier.html" class="cart-icon active" aria-label="Voir le panier"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></a></div>
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cart-heading"><p class="eyebrow">Vos produits préférés</p><h1>Votre panier</h1><p>Modifiez les quantités, supprimez un article ou envoyez votre commande directement sur WhatsApp.</p></section>
+
+    <section class="cart-layout">
+      <div class="cart-products-panel">
+        <div class="cart-panel-heading"><div><h2>Mes articles</h2><p id="cart-items-count">0 article</p></div><button id="clear-cart" class="clear-cart" type="button" hidden>Vider le panier</button></div>
+        <div id="cart-items" class="cart-items-list" aria-live="polite"></div>
+        <div id="empty-cart" class="empty-cart-state">
+          <i class="fas fa-bag-shopping"></i>
+          <h2>Votre panier est vide</h2>
+          <p>Aucun produit n’est ajouté automatiquement. Découvrez la boutique et choisissez vos articles.</p>
+          <a href="boutique.html" class="btn-primary">Découvrir la boutique</a>
+        </div>
+      </div>
+
+      <aside class="cart-summary-card">
+        <p class="eyebrow">Votre commande</p>
+        <h2>Récapitulatif</h2>
+        <div class="summary-line"><span>Nombre d’articles</span><strong id="summary-quantity">0</strong></div>
+        <div class="summary-line summary-total"><span>Sous-total connu</span><strong id="summary-total">0,00 €</strong></div>
+        <p id="pending-note" class="pending-note" hidden>Certains prix restent à confirmer avec notre équipe.</p>
+        <button id="whatsapp-order" class="whatsapp-order" type="button" disabled><i class="fab fa-whatsapp"></i> Valider sur WhatsApp</button>
+        <p class="order-note"><i class="fas fa-circle-info"></i> WhatsApp s’ouvrira avec le détail de votre panier. Vous pourrez vérifier le message avant de l’envoyer.</p>
+        <a href="boutique.html" class="continue-link"><i class="fas fa-arrow-left"></i> Continuer mes achats</a>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer-minimal"><div class="footer-content"><div class="footer-section"><h3>Glamour Cosmetics</h3><p>Des produits de vos marques préférées pour révéler votre beauté, chaque jour.</p></div><div class="footer-section"><h3>Contact</h3><p><a href="tel:+22372064730">+223 72 06 47 30</a></p><p><a href="mailto:fatoumatadoumbia720@gmail.com">fatoumatadoumbia720@gmail.com</a></p></div></div><div class="footer-bottom"><p>&copy; 2026 Glamour Cosmetics. Tous droits réservés.</p></div></footer>
+
+  <script src="script.js?v=20260716-cart-live"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cartItems = document.getElementById('cart-items');
+      const emptyState = document.getElementById('empty-cart');
+      const countText = document.getElementById('cart-items-count');
+      const summaryQuantity = document.getElementById('summary-quantity');
+      const summaryTotal = document.getElementById('summary-total');
+      const pendingNote = document.getElementById('pending-note');
+      const clearButton = document.getElementById('clear-cart');
+      const orderButton = document.getElementById('whatsapp-order');
+      const cartApi = window.glamourCart;
+      const read = () => cartApi ? cartApi.read() : JSON.parse(localStorage.getItem('glamourCosmeticsCart') || '[]');
+      const write = (cart) => cartApi ? cartApi.write(cart) : localStorage.setItem('glamourCosmeticsCart', JSON.stringify(cart));
+      const money = (value) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value);
+      const safe = (value) => String(value || '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+      const hasPrice = (item) => Number.isFinite(Number(item.price)) && Number(item.price) > 0 && !item.pricePending;
+
+      function renderCart() {
+        const cart = read().filter(item => item && item.name && Number(item.quantity || 0) > 0);
+        const quantity = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+        const total = cart.reduce((sum, item) => sum + (hasPrice(item) ? Number(item.price) * Number(item.quantity || 0) : 0), 0);
+        const pending = cart.some(item => !hasPrice(item));
+
+        cartItems.innerHTML = cart.map((item, index) => `
+          <article class="live-cart-item" data-index="${index}">
+            <div class="live-item-image"><img src="${safe(item.image)}" alt="${safe(item.name)}"></div>
+            <div class="live-item-info"><p class="item-brand">Glamour Cosmetics</p><h3>${safe(item.name)}</h3><p class="live-item-price">${hasPrice(item) ? money(Number(item.price)) : 'Prix à confirmer'}</p></div>
+            <div class="quantity-control" aria-label="Quantité de ${safe(item.name)}"><button type="button" data-action="decrease" aria-label="Diminuer">−</button><input type="number" min="1" max="99" value="${Number(item.quantity || 1)}" aria-label="Quantité"><button type="button" data-action="increase" aria-label="Augmenter">+</button></div>
+            <div class="live-item-total">${hasPrice(item) ? money(Number(item.price) * Number(item.quantity || 0)) : 'À confirmer'}</div>
+            <button class="remove-item" type="button" data-action="remove" aria-label="Supprimer ${safe(item.name)}"><i class="fas fa-trash"></i><span>Supprimer</span></button>
+          </article>`).join('');
+
+        emptyState.hidden = cart.length > 0;
+        cartItems.hidden = cart.length === 0;
+        clearButton.hidden = cart.length === 0;
+        orderButton.disabled = cart.length === 0;
+        countText.textContent = `${quantity} article${quantity > 1 ? 's' : ''}`;
+        summaryQuantity.textContent = quantity;
+        summaryTotal.textContent = money(total);
+        pendingNote.hidden = !pending;
+      }
+
+      cartItems.addEventListener('click', event => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const index = Number(button.closest('.live-cart-item').dataset.index);
+        const cart = read();
+        if (!cart[index]) return;
+        if (button.dataset.action === 'increase') cart[index].quantity = Math.min(99, Number(cart[index].quantity || 1) + 1);
+        if (button.dataset.action === 'decrease') cart[index].quantity = Math.max(1, Number(cart[index].quantity || 1) - 1);
+        if (button.dataset.action === 'remove') cart.splice(index, 1);
+        write(cart);
+        renderCart();
+      });
+
+      cartItems.addEventListener('change', event => {
+        if (!event.target.matches('input[type="number"]')) return;
+        const index = Number(event.target.closest('.live-cart-item').dataset.index);
+        const cart = read();
+        if (!cart[index]) return;
+        cart[index].quantity = Math.max(1, Math.min(99, Number(event.target.value || 1)));
+        write(cart);
+        renderCart();
+      });
+
+      clearButton.addEventListener('click', () => {
+        if (window.confirm('Voulez-vous vraiment vider votre panier ?')) {
+          write([]);
+          renderCart();
+        }
+      });
+
+      orderButton.addEventListener('click', () => {
+        const cart = read();
+        if (!cart.length) return;
+        const lines = cart.map((item, index) => `${index + 1}. ${item.name} × ${item.quantity} — ${hasPrice(item) ? money(Number(item.price) * Number(item.quantity)) : 'prix à confirmer'}`);
+        const knownTotal = cart.reduce((sum, item) => sum + (hasPrice(item) ? Number(item.price) * Number(item.quantity || 0) : 0), 0);
+        const message = `Bonjour Glamour Cosmetics,\n\nJe souhaite valider cette commande :\n\n${lines.join('\n')}\n\nSous-total connu : ${money(knownTotal)}\n\nMerci de me confirmer la disponibilité, les prix restants et la livraison.`;
+        window.open(`https://wa.me/22372064730?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+      });
+
+      renderCart();
+    });
+  </script>
+</body>
+</html>
